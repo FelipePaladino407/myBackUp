@@ -15,5 +15,7 @@ Configurá `config.ini` con las rutas deseadas, luego ejecutá:
 ./backup.sh
 
 3 formas de moverse en linux. La menos linux de las 3 es la de hacer menus. La mas linux es entradas por parametros. Una tercera forma,
-media traida de los pelos, es un archivo de configuracion (archivo.com). 
+media traida de los pelos, es un archivo de configuracion (archivo.com).
+
+Objetivo: cargarle la entrada de Man. Que yo haga man.mybackUp y me tire un help.
  
