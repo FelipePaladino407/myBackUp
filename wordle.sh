@@ -1,7 +1,7 @@
 
 #!/bin/bash
 
-palabras=("gato" "perro" "sistemas" "hambre" "cafe" "caffa" "scheduller" "driver" "ram" "rom" "cpu" "kernell")
+palabras=( "sistemas" "caffa" "scheduller" "drivers" "ram" "rom" "cpu" "kernell" "procesos" "recursos" ")
 secreta=${palabras[$RANDOM % ${#palabras[@]}]}
 
 intentos=0
