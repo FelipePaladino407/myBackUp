@@ -7,6 +7,11 @@ directorioDestino=""
 explicacionVerbose=false
 comprimir=true
 
+CONFIG="$HOME/.myBackup.conf"
+if [[ -f "$CONFIG" ]]; then
+	source "$CONFIG"
+fi
+
 while [[ $# -gt 0 ]]; do 
 	opcion="$1"
 	case "$opcion" in 

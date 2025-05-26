@@ -1,0 +1,7 @@
+.TH MIBACKUP 1 "Manual de usuario"
+
+.SH NOMBRE
+hacerBackup \- Script para realizar backups comprimidos en Linux
+
+.SH SINOPSIS
+.B mibackup
