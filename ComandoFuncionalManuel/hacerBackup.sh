@@ -68,4 +68,6 @@ tar $tipoTar "$archivoGuardado" -C "$(dirname "$directorioOrigen")" "$(basename 
 echo "llegue"
 if [[ "$explicacionVerbose" == true ]]; then
 	echo "El back se ha realizado con exito"
+	bytes=$(./tamano "$archivoGuardado")
+	echo "El backUp pesa $bytes bytes"
 fi
