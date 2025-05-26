@@ -1,14 +1,14 @@
 
 #!/bin/bash
 
-palabras=("gatos" "perro" "plato" "banco" "silla" "caffa")
+palabras=("gato" "perro" "sistemas" "hambre" "cafe" "caffa" "scheduller" "driver" "ram" "rom" "cpu" "kernell")
 secreta=${palabras[$RANDOM % ${#palabras[@]}]}
 
 intentos=0
 max_intentos=6
 
 echo "Bienvenido al Wordle!!"
-echo "Adivina la palabra de 5 letras. Tenes $max_intentos intentos"
+echo "Adivina la palabra de ${#secreta} letras. Tenes $max_intentos intentos"
 
 VERDE='\033[1;32m'
 AMARILLO='\033[1;33m'
@@ -19,24 +19,44 @@ echo -e "${VERDE}Correcto${RESET}, ${AMARILLO}Lugar Incorrecto y ${GRIS}Incorrec
 while (( intentos<max_intentos)); do
 	read -p "Intento $((intentos+1)): " intento
 
-	if [[ ${#intento} -ne 5 ]]; then
-		echo "La palabra debe tener 5 letras, volve a inicial"
+	if [[ ${#intento} -ne ${#secreta} ]]; then
+		echo "La palabra debe tener ${#secreta} letras."
 		continue
 
 	fi
+	declare -a usada
+	resultado=()
+	largo=${#secreta}
+	for ((i=0; i<largo; i++)); do usada[i]=0; done
 
-	resultado=""
-	for (( i=0; i<5; i++)); do
+
+	for (( i=0; i<largo; i++)); do
 		letra="${intento:$i:1}"
 		if [[ "${letra}" == "${secreta:$i:1}" ]]; then 
-			resultado+="${VERDE}${letra}${RESET}"
-		elif [[ "$secreta" == *"{letra}"* ]]; then
-			resultado+="${AMARILLO}${letra}${RESET}"
-		else
-			resultado+="${GRIS}${letra}${RESET}"
+			resultado[i]="${VERDE}${letra}${RESET}"
+			usada[i]=1
 		fi
 	done
-	echo -e "$resultado"
+
+	for (( i=0; i<largo; i++)); do
+		if [[ -n "${resultado[i]}" ]]; then continue; fi
+		letra="${intento:$i:1}"
+		encontrado=false
+
+		for ((j=0; j<largo; j++)); do
+	                if [[ "${letra}" == "${secreta:$j:1}" && "${usada[j]}" -eq 0 ]]; then 
+				 resultado[i]="${AMARILLO}${letra}${RESET}"
+				 usada[j]=1
+			 	 encontrado=true
+				 break
+			fi
+		done
+
+		if ! $encontrado; then
+			resultado[i]="${GRIS}${letra}${RESET}"
+		fi
+	done
+	echo -e "${resultado[*]}"
 	((intentos++))
 
 	if [[ "$intento" == "$secreta" ]]; then
