@@ -50,7 +50,7 @@ fi
 
 
 if [[ "$cron" == false ]]; then
-	echo "No hago crontab$
+	echo "No hago crontab$"
 	eval ./hacerBackup.sh $args
 else
 	echo "Hago con crontab"
