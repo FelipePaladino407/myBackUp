@@ -75,21 +75,25 @@ if [[ -z "$nombre" ]]; then
 	exit 1
 fi
 
-hacerBackup="/home/ManuelNey/TrabajoOS/hacerbackup.sh"
+hacerBackup="/home/vboxuser/myBackUp/ComandoFuncionalManuel/hacerBackup.sh"
 
-comando="$hacerBackup -o '$directorioOrigen' -d '$directorioDestino' -n '$nombre'"
+comando="$hacerBackup -o $directorioOrigen -d $directorioDestino -n $nombre"
 
 tiempoCron="$minuto $hora $diaMes $mes $diaSemana"
 echo "$tiempoCron"
 if [[ "$comprimir" == false ]]; then 
-	comando+="-nc"
+	comando+=" -nc"
 fi
 
 if [[ "$explicacionVerbose" == true ]]; then 
 	comando+=" -v"
 fi
 
-linea="$tiempoCron $comando BackupDe:$nombre"
-crontab -l 2>/dev/null | grep -v "BackUp:$nombre" ; echo "$linea" | crontab -
+echo "origen $directorioOrigen"
+echo "destino $directorioDestino"
+
+linea="$tiempoCron $comando # BackupDe:$nombre"
+(crontab -l 2>/dev/null | grep -v "BackupDe:$nombre" ; echo "$linea") | crontab -
 echo "Ya termine"
+echo "$linea"
 

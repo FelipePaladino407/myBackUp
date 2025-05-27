@@ -7,6 +7,7 @@ directorioDestino=""
 explicacionVerbose=false
 comprimir=true
 
+
 while [[ $# -gt 0 ]]; do 
 	opcion="$1"
 	case "$opcion" in 

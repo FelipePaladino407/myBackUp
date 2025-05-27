@@ -1,0 +1,6 @@
+ConfigConVariableTxT_001
+/home/vboxuser/Documents
+/home/vboxuser/Respaldos
+1
+1
+0
