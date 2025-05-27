@@ -1,6 +1,6 @@
-NuevoConfigComunTXT_002
+ConfigYCrontab999
 /home/vboxuser/Documents
 /home/vboxuser/Respaldos
 1
 1
-0
+1
