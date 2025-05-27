@@ -1,0 +1,6 @@
+otroNombreRespaldo
+/home/vboxuser/Documents
+/home/vboxuser/Documents/Respaldos
+1
+1
+0
