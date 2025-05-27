@@ -75,7 +75,7 @@ if [[ -z "$nombre" ]]; then
 	exit 1
 fi
 
-hacerBackup="/home/vboxuser/Documents/Respaldos"
+hacerBackup="/home/vboxuser/myBackUp/ComandoFuncionalManuel/hacerBackup.sh"
 
 comando="$hacerBackup -o '$directorioOrigen' -d '$directorioDestino' -n '$nombre'"
 
