@@ -1,27 +1,28 @@
+archivo="$1"
 nombre=""
 directorioOrigen=""
 directorioDestino=""
 explicacionVerbose=false
 comprimir=false
 cron=false
-nombre=$(sed -n '1p' hacerBackup.config.txt)
-directorioOrigen=$(sed -n '2p' hacerBackup.config.txt)
-directorioDestino=$(sed -n '3p' hacerBackup.config.txt)
-lineaVerbose=$(sed -n '4p' hacerBackup.config.txt)
+nombre=$(sed -n '1p' "$archivo")
+directorioOrigen=$(sed -n '2p' "$archivo")
+directorioDestino=$(sed -n '3p' "$archivo")
+lineaVerbose=$(sed -n '4p' "$archivo")
 
 if [[ "$lineaVerbose" -eq 1 ]]; then
         explicacionVerbose=true
 	echo "Entre en el if 1"
 fi
 
-lineaComprimir=$(sed -n '5p' hacerBackup.config.txt)
+lineaComprimir=$(sed -n '5p' "$archivo")
 
 if [[ "$lineaComprimir" -eq 1 ]]; then
         comprimir=true
         echo "Entre en el if 2"
 fi
 
-lineaCrontab=$(sed -n '6p' hacerBackup.config.txt)
+lineaCrontab=$(sed -n '6p' "$archivo")
 
 if [[ "$lineaCrontab" -eq 1 ]]; then
         cron=true

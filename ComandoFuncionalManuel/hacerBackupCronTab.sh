@@ -77,7 +77,7 @@ fi
 
 hacerBackup="/home/vboxuser/myBackUp/ComandoFuncionalManuel/hacerBackup.sh"
 
-comando="$hacerBackup -o '$directorioOrigen' -d '$directorioDestino' -n '$nombre'"
+comando="./hacerBackup.sh -o $directorioOrigen -d $directorioDestino -n $nombre"
 
 tiempoCron="$minuto $hora $diaMes $mes $diaSemana"
 echo "$tiempoCron"
@@ -89,7 +89,10 @@ if [[ "$explicacionVerbose" == true ]]; then
 	comando+=" -v"
 fi
 
+echo "origen $directorioOrigen"
+echo "destino $directorioDestino"
+
 linea="$tiempoCron $comando BackupDe:$nombre"
-crontab -l 2>/dev/null | grep -v "BackUp:$nombre" ; echo "$linea" | crontab -
+(crontab -l 2>/dev/null | grep -v "BackUp:$nombre" ; echo "$linea") | crontab -
 echo "Ya termine"
 

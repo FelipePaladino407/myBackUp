@@ -1,4 +1,4 @@
-ConfigConVariableTxT_001
+NuevoConfigComunTXT_002
 /home/vboxuser/Documents
 /home/vboxuser/Respaldos
 1
