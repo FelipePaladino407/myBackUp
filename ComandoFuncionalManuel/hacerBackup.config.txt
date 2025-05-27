@@ -1,6 +1,6 @@
-otroNombreRespaldo
+otroNombreRespaldoCrontab
 /home/vboxuser/Documents
-/home/vboxuser/Documents/Respaldos
+/home/vboxuser/Respaldos
 1
 1
-0
+1

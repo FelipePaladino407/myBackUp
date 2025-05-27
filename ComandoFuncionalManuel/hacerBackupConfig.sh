@@ -55,11 +55,11 @@ else
 	echo "Hago con crontab"
 	argsCron="-o \"$directorioOrigen\" -d \"$directorioDestino\" -n \"$nombre\""
 	if [[ "$verbose" == true ]]; then
-        argsCron+="$args -v"
+        argsCron="$args -v"
 	fi
 
 	if [[ "$comprimir" == true ]]; then
-        argsCron+="$args -nc"
+        argsCron="$args -nc"
 	fi
 
 eval ./hacerBackupCronTab.sh $argsCron
