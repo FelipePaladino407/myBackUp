@@ -50,17 +50,17 @@ fi
 
 
 if [[ "$cron" == false ]]; then
-	echo "No hago crontab"
+	echo "No hago crontab$
 	eval ./hacerBackup.sh $args
 else
 	echo "Hago con crontab"
-	argsCron="-o \"$directorioOrigen\" -d \"$directorioDestino\" -n \"$nombre\""
-	if [[ "$verbose" == true ]]; then
-        argsCron="$args -v"
+	argsCron="$args -m '*' -h '*' -dm '*' -nm '*' -ds '*'"
+	if [[ "$explicacionVerbose" == true ]]; then
+        argsCron="$argsCron -v"
 	fi
 
 	if [[ "$comprimir" == true ]]; then
-        argsCron="$args -nc"
+        argsCron="$argsCron -nc"
 	fi
 
 eval ./hacerBackupCronTab.sh $argsCron

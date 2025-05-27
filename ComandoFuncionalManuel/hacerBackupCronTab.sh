@@ -6,8 +6,8 @@ explicacionVerbose=false
 comprimir=true
 nombre=""
 
-hora="*"
-minuto="*"
+hora="0"
+minuto="0"
 diaMes="*"
 mes="*"
 diaSemana="*"
