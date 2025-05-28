@@ -6,6 +6,8 @@ directorioOrigen=""
 directorioDestino=""
 explicacionVerbose=false
 comprimir=true
+encriptar=false
+clave=""
 
 
 while [[ $# -gt 0 ]]; do 
@@ -31,6 +33,11 @@ while [[ $# -gt 0 ]]; do
 		   comprimir=false
 		   shift
 		   ;;
+		-e)
+		   encriptar=true
+		   clave="$2"
+                   shift 2
+                   ;;
 		 *)	
 		   echo "Opcion no valida"
 	       	   exit 1
@@ -65,6 +72,23 @@ if [[ "$explicacionVerbose" == true ]]; then
 	echo "Guardando backup de  $directorioOrigen a $directorioDestino"
 fi
 tar $tipoTar "$archivoGuardado" -C "$(dirname "$directorioOrigen")" "$(basename "$directorioOrigen")"
+
+# Encriptar si se pidió
+if [[ "$encriptar" == true ]]; then
+    archivoEncriptado="${archivoGuardado}.enc"
+    if [[ "$explicacionVerbose" == true ]]; then
+        echo "Encriptando archivo $archivoGuardado..."
+    fi
+    ./encrypt_file "$archivoGuardado" "$archivoEncriptado" "$clave"
+    
+    if [[ $? -eq 0 ]]; then
+        rm "$archivoGuardado"  # Borra el archivo sin encriptar
+        archivoGuardado="$archivoEncriptado"
+    else
+        echo "Error: Falló la encriptación"
+        exit 1
+    fi
+fi
 
 echo "llegue"
 if [[ "$explicacionVerbose" == true ]]; then
