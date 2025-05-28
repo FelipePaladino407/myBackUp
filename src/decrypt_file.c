@@ -4,6 +4,7 @@
 #include <string.h>
 #include <openssl/err.h>
 #include <openssl/rand.h>
+#include <openssl/sha.h>
 
 void handleErrors(void) {
     ERR_print_errors_fp(stderr);
@@ -21,6 +22,7 @@ int decrypt_file(const char *input_path, const char *output_path, const unsigned
     EVP_CIPHER_CTX *ctx = EVP_CIPHER_CTX_new();
     if (!ctx) handleErrors();
 
+	// EL IV QUEDO GUARDADO EN EL ARCHIVO DE ENTRADA.
     unsigned char iv[16];
     if (fread(iv, 1, sizeof(iv), in_file) != sizeof(iv)) {
 	fprintf(stderr, "Error al leer el IV del archivo.\n");
@@ -44,8 +46,13 @@ int decrypt_file(const char *input_path, const char *output_path, const unsigned
     }
 
     int final_len;
-    if (1 != EVP_DecryptFinal_ex(ctx, plaintext, &final_len))
-        handleErrors();
+    if (1 != EVP_DecryptFinal_ex(ctx, plaintext, &final_len)) {
+    	fprintf(stderr, "Error: la clave es incorrecta o el archivo esta corrupto. ABORTAR! ABORTAR!. \n");
+ 	EVP_CIPHER_CTX_free(ctx);
+	fclose(in_file);
+	fclose(out_file);
+	return 1;
+}
 
     fwrite(plaintext, 1, final_len, out_file);
     plaintext_len += final_len;
@@ -59,15 +66,16 @@ int decrypt_file(const char *input_path, const char *output_path, const unsigned
 }
 
 int main(int argc, char *argv[]) {
-    if (argc != 3) {
+    if (argc != 4) {
         printf("Uso: %s <archivo_cifrado> <archivo_salida>\n", argv[0]);
         return 1;
     }
 
-    unsigned char key[32] = {
-        '1','2','3','4','5','6','7','8','9','0','1','2','3','4','5','6',
-        '7','8','9','0','1','2','3','4','5','6','7','8','9','0','1','2'
-    };
+    printf("Archivo cifrado: %s\n", argv[1]);
+    printf("Archivo de salida: %s\n", argv[2]);
+
+    unsigned char key[32];
+    SHA256((const unsigned char *)argv[3], strlen(argv[3]), key);
 
     return decrypt_file(argv[1], argv[2], key);
 }
