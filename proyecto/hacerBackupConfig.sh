@@ -12,29 +12,27 @@ lineaVerbose=$(sed -n '4p' "$archivo")
 
 if [[ "$lineaVerbose" -eq 1 ]]; then
         explicacionVerbose=true
-	echo "Entre en el if 1"
 fi
 
 lineaComprimir=$(sed -n '5p' "$archivo")
 
 if [[ "$lineaComprimir" -eq 1 ]]; then
         comprimir=true
-        echo "Entre en el if 2"
 fi
 
 lineaCrontab=$(sed -n '6p' "$archivo")
 
 if [[ "$lineaCrontab" -eq 1 ]]; then
         cron=true
-	echo "entre en el if 3"
 fi
 
-echo "$nombre"
-echo "$directorioOrigen"
-echo "$directorioDestino"
-echo "$explicacionVerbose"
-echo "$comprimir"
-echo "$cron"
+echo "Datos:"
+echo "Nombre: $nombre"
+echo "DirOrigen: $directorioOrigen"
+echo "DirDestino: $directorioDestino"
+echo "Verbose: $explicacionVerbose"
+echo "Comprimir: $comprimir"
+echo "Crontab: $cron"
 
 
 args="-o \"$directorioOrigen\" -d \"$directorioDestino\" -n \"$nombre\""
@@ -50,20 +48,11 @@ fi
 
 
 if [[ "$cron" == false ]]; then
-	echo "No hago crontab$"
-	eval ./hacerBackup.sh $args
+	eval  ./hacerBackup.sh $args
 else
-	echo "Hago con crontab"
 	argsCron="$args -m '*' -h '*' -dm '*' -nm '*' -ds '*'"
-	if [[ "$explicacionVerbose" == true ]]; then
-        argsCron="$argsCron -v"
-	fi
 
-	if [[ "$comprimir" == true ]]; then
-        argsCron="$argsCron -nc"
-	fi
-
-eval ./hacerBackupCronTab.sh $argsCron
+	eval ./hacerBackupCronTab.sh $argsCron
 fi
 
 
