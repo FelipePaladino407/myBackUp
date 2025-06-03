@@ -15,7 +15,7 @@ function usage() {
 }
 
 # -------------------------------
-# Validasion de parametros
+# Validación de parámetros
 # -------------------------------
 
 while getopts "f:k:dxa" opt; do
@@ -37,10 +37,10 @@ fi
 # Desencriptar
 # -------------------------------
 function desencriptar() {
-    nombre_salida="${archivo%.enc}"
-    echo "🔓 Desencriptando '$archivo' a '$nombre_salida'..."
-    echo "[DEBUG] Ejecutando: ./decrypt_file \"$archivo\" \"$nombre_salida\" \"$clave\""
-    ./decrypt_file "$archivo" "$nombre_salida" "$clave"
+    archivo_salida="${archivo%.enc}"
+    echo "🔓 Desencriptando '$archivo' a '$archivo_salida'..."
+    echo "[DEBUG] Ejecutando: ./decrypt_file \"$archivo\" \"$archivo_salida\" \"$clave\""
+    ./decrypt_file "$archivo" "$archivo_salida" "$clave"
     if [ $? -eq 0 ]; then
         echo "✅ Desencriptado exitosamente"
     else
@@ -53,8 +53,9 @@ function desencriptar() {
 # Descomprimir
 # -------------------------------
 function descomprimir() {
-    echo "📦 Descomprimiendo '$archivo'..."
-    tar -xzf "$archivo"
+    carpeta_destino=$(dirname "$archivo")
+    echo "📦 Descomprimiendo '$archivo' en '$carpeta_destino'..."
+    tar -xzf "$archivo" -C "$carpeta_destino"
     if [ $? -eq 0 ]; then
         echo "✅ Descomprimido exitosamente"
     else
@@ -64,7 +65,7 @@ function descomprimir() {
 }
 
 # -------------------------------
-# Flujo segun opcion.
+# Flujo según opción
 # -------------------------------
 if [ "$solo_desencriptar" = true ]; then
     desencriptar
@@ -75,7 +76,7 @@ elif [ "$solo_descomprimir" = true ]; then
 
 elif [ "$restaurar_todo" = true ]; then
     desencriptar
-    archivo="${archivo%.enc}"  # actualiza el nombre desencriptado
+    archivo="${archivo%.enc}"  # ahora es .tar.gz
     descomprimir
 
 else
