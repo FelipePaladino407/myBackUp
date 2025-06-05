@@ -43,6 +43,8 @@ int encrypt_file(const char *input_path, const char *output_path, const unsigned
         if (1 != EVP_EncryptUpdate(ctx, cipher_buffer, &cipher_len, buffer, len))
             handleErrors();
         fwrite(cipher_buffer, 1, cipher_len, out_file);
+	printf("Cifrado/escrito %d bytes\n", cipher_len);
+
     }
 
     if (1 != EVP_EncryptFinal_ex(ctx, cipher_buffer, &cipher_len))
