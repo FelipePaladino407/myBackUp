@@ -1,7 +1,7 @@
 #!/bin/bash
 # menu.sh - Interfaz para tu automatizador de backups
 
-# Ruta a tus scripts (ajústalas si las tienes en otro directorio)
+# Ruta a los scripts, de backup y eso:
 HACER_BACKUP="$HOME/Documents/SO/myBackUp/proyecto/hacerBackup.sh"
 HACER_CRON="$HOME/Documents/SO/myBackUp/proyecto/hacerBackupCronTab"
 RESTAURAR="$HOME/Documents/SO/myBackUp/proyecto/restaurar.sh"
@@ -33,7 +33,7 @@ function opcion_hacer_backup() {
   read -rp "¿Modo verbose? (s/n) [n]: " v
   [[ "$v" =~ ^[Ss] ]] && verbose_arg="-v"
 
-  # Ejecutamos
+  # Procedemos a realizar la infame ejecucion:
   bash "$HACER_BACKUP" -o "$origen" -d "$destino" -n "$nombre" $comprimir_arg $encriptar_arg $verbose_arg
   pausar
 }
@@ -60,7 +60,7 @@ function opcion_backup_cron() {
   read -rp "¿Modo verbose? (s/n) [n]: " v
   [[ "$v" =~ ^[Ss] ]] && verbose_arg="-v"
 
-  # Ejecutamos
+  # Infame ejecucion:
   bash "$HACER_CRON" -o "$origen" -d "$destino" -n "$nombre" -m "$m" -h "$h" -dm "$dm" -nm "$mm" -ds "$ds" $comprimir_arg $verbose_arg
   pausar
 }
@@ -123,7 +123,7 @@ EOF
     3) opcion_restaurar ;;
     4) opcion_listar_backups ;;
     5) opcion_limpiar_antiguos ;;
-    6) echo "¡Chau!"; exit 0 ;;
+    6) echo "¡Listo?, Joya, por favor deje su rating en google maps!"; exit 0 ;;
     *) echo "Opción inválida."; pausar ;;
   esac
 done
