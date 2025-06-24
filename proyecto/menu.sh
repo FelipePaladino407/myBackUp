@@ -1,5 +1,5 @@
 #!/bin/bash
-# menu.sh - Interfaz para tu automatizador de backups
+# menu.sh - Menu backup:
 
 # Ruta a los scripts, de backup y eso:
 HACER_BACKUP="$HOME/Documents/SO/myBackUp/proyecto/hacerBackup.sh"
