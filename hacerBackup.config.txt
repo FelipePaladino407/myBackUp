@@ -1,5 +1,0 @@
-nombreDefault
-vboxuser/home/Documents
-vbox/home
-0
-1
